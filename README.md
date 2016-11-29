@@ -1,4 +1,4 @@
-# digital-gypsy-app
+# Digital-Gypsy
 An app for digital gypsies to discover awesome new places to work.
 
 ![digital-gypsy-screencap](http://i.imgur.com/nJ7RqCZ.jpg)
@@ -34,6 +34,7 @@ Digital Gypsy now serves as your source for finding new locations to work out of
 - Babel
 - Webpack 
 - Bcrypt
+- JSON Web Token
 - Nomadlist API
 - Google Maps API
 
