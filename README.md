@@ -34,6 +34,8 @@ Digital Gypsy now serves as your source for finding new locations to work out of
 - Babel
 - Webpack 
 - Bcrypt
+- Nomadlist API
+- Google Maps API
 
 ## Sources:
 - Drop down login bar: http://jsfiddle.net/rhxxyky8/10/
