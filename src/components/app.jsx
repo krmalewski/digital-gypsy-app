@@ -61,6 +61,9 @@ class App extends Component {
     } else if (prevState.selected !== this.state.selected) {
       this.formHandler();
     }
+    if (prevState.userID !== this.state.userID) {
+      this.fetchSavedCities();
+    }
   }
 
   // This function will push the top 20 cities from the cities object into a new array
@@ -196,7 +199,7 @@ class App extends Component {
   formHandler() {
     console.log('form');
     const formData = {
-      user_id: 1,
+      user_id: this.state.userID,
       city: this.state.selected.info.city.name,
       country: this.state.selected.info.country.name,
       slug: this.state.selected.info.city.slug,
@@ -214,7 +217,7 @@ class App extends Component {
 
   // Get all saved cities from database and save then into the saved state.
   fetchSavedCities() {
-    fetch('/gypsy')
+    fetch(`/gypsy/${this.state.userID}`)
     .then(r => r.json())
     .then((saved) => {
       this.setState(
@@ -332,20 +335,23 @@ class App extends Component {
     })
     .then(r => r.json())
     .then((response) => {
-      if (!(response.user.error)) {
+      console.log('the response is:', response)
+      if (response.id !== 'invalid') {
         this.setState({
-          userID: response.user.id,
+          userID: response.id,
         });
         // saves jwt token and ID
-        window.localStorage.token = response.user.token;
-        window.localStorage.id = response.user.id;
+        localStorage.id = response.id;
+        localStorage.token = response.token;
+      } else {
+        alert('invalid login');
       }
     })
     .then(this.setState({
       loginName: '',
       loginPass: ''
     }))
-    .then(console.log('logging in...'))
+    .then(console.log('logging in', localStorage.id))
     .catch(err => console.log(err));
   }
   // sends the signup data to the api server
@@ -366,11 +372,11 @@ class App extends Component {
     .then(r => r.json())
     .then((response) => {
       console.log(response);
-      if (!(response.error)) {
+      if (response.id) {
         this.setState({
-          userID: response.user.id,
+          userID: response.id,
         })
-        window.localStorage.id = response.user.id
+        localStorage.id = response.id;
       } else {
         alert(response.message);
       }
@@ -403,30 +409,31 @@ class App extends Component {
   // this authenticates the user on each page load
   // uses a token from local storage to verify access
   authenticateUser() {
+    let token;
+    if ((localStorage.getItem('token') === null)) {
+      token = 'invalid';
+    } else {
+       token = localStorage.getItem('token')
+    }
+    console.log(token)
     fetch('/auth/verify', {
       headers: {
         'Content-Type': 'application/json',
       },
       method: 'POST',
       body: JSON.stringify({
-        id: this.state.id, // do we need to pass this? In localStorage...
-        token: window.localStorage.getItem('token'),
+        id: this.state.id,
+        token: token,
       }),
     })
     .then(r => r.json())
     .then((response) => {
-      if (!(response.error)) {
-        this.setState({
-          userID: response.user.id,
-        });
-        // saves a new jwt token
-        window.localStorage.token = response.token;
+      if (response.name === 'JsonWebTokenError') {
+        this.setState({ userID: 0 });
+        localStorage.setItem('token', null);
       } else {
-        this.setState({
-          userID: 0,
-        });
-        window.localStorage.token = null;
-        window.localStorage.id = null
+        this.setState({ userID: response.id });
+        localStorage.setItem('token', response.token)
       }
     })
     .catch(err => console.log(err));
