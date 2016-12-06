@@ -7,7 +7,7 @@ const cookieParser = require('cookie-parser');
 const passport = require('passport');
 
 const app = express();
-const PORT = process.argv[2] || process.env.port || 3000;
+const PORT = process.argv[2] || process.env.PORT || 3000;
 
 // import router for our API
 const gypsyRouter = require('./routes/gypsy');
