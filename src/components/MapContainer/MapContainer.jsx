@@ -36,7 +36,7 @@ class SavedMap extends Component {
           <GoogleMap
             defaultZoom={1}
             defaultCenter={center}
-            options={{ streetViewControl: false, mapTypeContro: false }}
+            options={{ streetViewControl: false, mapTypeControl: false }}
           >
             { markers }
           </GoogleMap>

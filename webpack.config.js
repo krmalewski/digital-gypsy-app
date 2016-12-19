@@ -1,4 +1,3 @@
-'use strict'
 const webpack           = require('webpack');
 const path              = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -6,6 +5,8 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const BUILD_DIR         = path.resolve(__dirname, 'dist');
 const APP_DIR           = path.resolve(__dirname, 'src');
+
+const MAPS_KEY          = process.env.MAPS_KEY;
 
 
 module.exports = {
@@ -23,10 +24,10 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'Digital Gypsy',
+      title: 'The Moodie Foodie',
       xhtml: true,
-      inject: true,
-      scripts: ['https://maps.googleapis.com/maps/api/js?libraries=visualization&key=AIzaSyDLO9BWFDxOz2rzAjvkDwel7aRz025PcgY'],
+      inject: false,
+      scripts: [`https://maps.googleapis.com/maps/api/js?libraries=visualization&key=AIzaSyDLO9BWFDxOz2rzAjvkDwel7aRz025PcgY`],
       template: require('html-webpack-template'),
       appMountId: 'root-container',
     }),

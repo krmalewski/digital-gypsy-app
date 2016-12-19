@@ -10,9 +10,6 @@ const { createToken } = require('../lib/token');
     console.log(req.body);
     const userObject = {
       username: req.body.username,
-      // email: req.body.email,
-      // Store hashed password
-      // password: req.body.password
       password: bcrypt.hashSync(req.body.password, SALTROUNDS)
     };
 

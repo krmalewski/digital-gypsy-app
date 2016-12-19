@@ -41,7 +41,7 @@ class App extends Component {
   componentWillMount() {
     // fetch call to authenticate the user here
     this.fetchAllCities();
-    this.authenticateUser();
+    // this.authenticateUser();
   }
 
   // This function will hit our API route to fetch all the cities listed
