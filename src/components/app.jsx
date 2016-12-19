@@ -5,9 +5,9 @@ import SearchForm from './SearchForm/SearchForm.jsx';
 import SearchList from './SearchList/SearchList.jsx';
 import SavedList from './SavedList/SavedList.jsx';
 import SavedMap from './MapContainer/MapContainer.jsx';
-import Login from './auth/Login/Login.jsx';
-import SignUp from './auth/SignUp/SignUp.jsx';
-import Logout from './auth/Logout/Logout.jsx';
+// import Login from './auth/Login/Login.jsx';
+// import SignUp from './auth/SignUp/SignUp.jsx';
+// import Logout from './auth/Logout/Logout.jsx';
 import WorkPlaces from './WorkPlaces/WorkPlaces.jsx';
 import WorkPlacesMap from './WorkPlacesMap/WorkPlacesMap.jsx';
 import style from './App.css';
@@ -40,6 +40,7 @@ class App extends Component {
 
   componentWillMount() {
     // fetch call to authenticate the user here
+    console.log('will mount')
     this.fetchAllCities();
     // this.authenticateUser();
   }
@@ -47,6 +48,7 @@ class App extends Component {
   // This function will hit our API route to fetch all the cities listed
   // in the nomadlist api. Then, set our cities state to this response object.
   fetchAllCities() {
+    console.log('fetch all cities')
     fetch('nomad/cities')
     .then(r => r.json())
     .then(cities => this.setState({
@@ -61,9 +63,9 @@ class App extends Component {
     } else if (prevState.selected !== this.state.selected) {
       this.formHandler();
     }
-    if (prevState.userID !== this.state.userID) {
-      this.fetchSavedCities();
-    }
+    // if (prevState.userID !== this.state.userID) {
+    //   this.fetchSavedCities();
+    // }
   }
 
   // This function will push the top 20 cities from the cities object into a new array
@@ -217,6 +219,7 @@ class App extends Component {
 
   // Get all saved cities from database and save then into the saved state.
   fetchSavedCities() {
+    console.log('fetch saved cities')
     fetch(`/gypsy/${this.state.userID}`)
     .then(r => r.json())
     .then((saved) => {
@@ -343,6 +346,7 @@ class App extends Component {
         // saves jwt token and ID
         localStorage.id = response.id;
         localStorage.token = response.token;
+        this.fetchSavedCities();
       } else {
         alert('invalid login');
       }
@@ -400,7 +404,10 @@ class App extends Component {
         id: this.state.userID,
       }),
     });
-    this.setState({ userID: 0 });
+    this.setState({
+      userID: 0,
+      saved: [],
+    });
     console.log('logging out');
     window.localStorage.token = null;
     window.localStorage.id = null;
@@ -512,25 +519,25 @@ class App extends Component {
               getWorkPlaces={this.getWorkPlaces.bind(this)}
             />
             <div style={{ width: '100%', height: '46%' }}>
-            <SavedMap
-              center={location}
-              markers={this.state.saved}
-            />
+              <SavedMap
+                center={location}
+                markers={this.state.saved}
+              />
             </div>
           </div>
           <div className="workplaces-container">
             <WorkPlaces
               work={this.state.work}
             />
-              <div style={{ width: '100%', height: '46%' }}>
-                <WorkPlacesMap
-                  center={this.state.workCenter}
-                  markers={this.state.work}
-                />
-              </div>
+            <div style={{ width: '100%', height: '46%' }}>
+              <WorkPlacesMap
+                center={this.state.workCenter}
+                markers={this.state.work}
+              />
             </div>
           </div>
-         <Footer />
+        </div>
+        <Footer />
       </div>
     );
   }

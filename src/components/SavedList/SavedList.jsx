@@ -4,9 +4,9 @@ import './SavedList.css';
 
 class SavedList extends Component {
 
-  componentWillMount() {
-    this.props.fetchSavedCities();
-  }
+  // componentWillMount() {
+  //   this.props.fetchSavedCities();
+  // }
 
   // returns the saved list
   renderSavedList() {
