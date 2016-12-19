@@ -10,7 +10,7 @@ import SavedMap from './MapContainer/MapContainer.jsx';
 // import Logout from './auth/Logout/Logout.jsx';
 import WorkPlaces from './WorkPlaces/WorkPlaces.jsx';
 import WorkPlacesMap from './WorkPlacesMap/WorkPlacesMap.jsx';
-import style from './App.css';
+import style from './app.css';
 
 class App extends Component {
   constructor() {
