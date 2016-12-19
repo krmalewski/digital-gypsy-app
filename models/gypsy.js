@@ -1,4 +1,4 @@
-const db = require('../db/db.js');
+const db = require('./db.js');
 
 // Go to the database and get all cities the user has saved
 function getSavedCities(req, res, next) {

@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const { createToken, comparePassword } = require('../lib/token.js');
 const { getUserByUsername, getUserById } = require('../models/user');
 const jwt = require('jsonwebtoken');
-const psql = require('../db/db.js');
+const psql = require('./db.js');
 
 function logIn(req, res, next) {
   const loginData = {
