@@ -5,11 +5,9 @@ import SearchForm from './SearchForm/SearchForm.jsx';
 import SearchList from './SearchList/SearchList.jsx';
 import SavedList from './SavedList/SavedList.jsx';
 import SavedMap from './MapContainer/MapContainer.jsx';
-// import Login from './auth/Login/Login.jsx';
-// import SignUp from './auth/SignUp/SignUp.jsx';
-// import Logout from './auth/Logout/Logout.jsx';
 import WorkPlaces from './WorkPlaces/WorkPlaces.jsx';
 import WorkPlacesMap from './WorkPlacesMap/WorkPlacesMap.jsx';
+import globalStyles from './assets/styles/global.css';
 import style from './app.css';
 
 class App extends Component {
